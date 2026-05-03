@@ -70,12 +70,12 @@ project/
 ├── consistent_hash.py
 ├── modulo_hash.py
 ├── visualization.py
-│
-├── key_distribution.png
-├── key_migration.png
-├── execution_time.png
-├── virtual_nodes.png
-├── hash_ring.png
+│── results/
+│        ├──  key_distribution.png
+│        ├── key_migration.png
+│        ├── execution_time.png
+│        ├──virtual_nodes.png
+│        ├──hash_ring.png
 │
 └── README.md
 ```
