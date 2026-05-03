@@ -19,78 +19,6 @@ NUM_KEYS = 10000
 keys = [f"user_{i}" for i in range(NUM_KEYS)]
 
 
-# ----------------------------------
-# Consistent Hashing
-# ----------------------------------
-
-print("\n===== CONSISTENT HASHING =====\n")
-
-ring = ConsistentHashRing(replicas=100)
-
-initial_nodes = ["NodeA", "NodeB", "NodeC"]
-
-for node in initial_nodes:
-    ring.add_node(node)
-
-
-# Store initial mapping
-start_time = time.perf_counter()
-
-before_mapping = {}
-
-distribution_before = {}
-
-for key in keys:
-    node = ring.get_node(key)
-
-    before_mapping[key] = node
-
-    distribution_before[node] = (
-        distribution_before.get(node, 0) + 1
-    )
-
-end_time = time.perf_counter()
-
-consistent_time = end_time - start_time
-
-print(f"\nConsistent Hashing Lookup Time: {consistent_time:.6f} sec")
-
-
-print("Initial Key Distribution:")
-print(distribution_before)
-
-
-# Add new node
-ring.add_node("NodeD")
-
-
-# Store new mapping
-after_mapping = {}
-
-distribution_after = {}
-
-for key in keys:
-    node = ring.get_node(key)
-
-    after_mapping[key] = node
-
-    distribution_after[node] = (
-        distribution_after.get(node, 0) + 1
-    )
-
-
-# Count migrated keys
-consistent_moved = 0
-
-for key in keys:
-    if before_mapping[key] != after_mapping[key]:
-        consistent_moved += 1
-
-
-print("\nAfter Adding NodeD:")
-print(distribution_after)
-
-print(f"\nKeys moved in Consistent Hashing: {consistent_moved}")
 
 
 # ----------------------------------
@@ -185,6 +113,80 @@ print(dist_100)
 
 print("\nDistribution with 500 replicas:")
 print(dist_500)
+
+
+# ----------------------------------
+# Consistent Hashing
+# ----------------------------------
+
+print("\n===== CONSISTENT HASHING =====\n")
+
+ring = ConsistentHashRing(replicas=100)
+
+initial_nodes = ["NodeA", "NodeB", "NodeC"]
+
+for node in initial_nodes:
+    ring.add_node(node)
+
+
+# Store initial mapping
+start_time = time.perf_counter()
+
+before_mapping = {}
+
+distribution_before = {}
+
+for key in keys:
+    node = ring.get_node(key)
+
+    before_mapping[key] = node
+
+    distribution_before[node] = (
+        distribution_before.get(node, 0) + 1
+    )
+
+end_time = time.perf_counter()
+
+consistent_time = end_time - start_time
+
+print(f"\nConsistent Hashing Lookup Time: {consistent_time:.6f} sec")
+
+
+print("Initial Key Distribution:")
+print(distribution_before)
+
+
+# Add new node
+ring.add_node("NodeD")
+
+
+# Store new mapping
+after_mapping = {}
+
+distribution_after = {}
+
+for key in keys:
+    node = ring.get_node(key)
+
+    after_mapping[key] = node
+
+    distribution_after[node] = (
+        distribution_after.get(node, 0) + 1
+    )
+
+
+# Count migrated keys
+consistent_moved = 0
+
+for key in keys:
+    if before_mapping[key] != after_mapping[key]:
+        consistent_moved += 1
+
+
+print("\nAfter Adding NodeD:")
+print(distribution_after)
+
+print(f"\nKeys moved in Consistent Hashing: {consistent_moved}")
 
 # ----------------------------------
 # Visualizations
