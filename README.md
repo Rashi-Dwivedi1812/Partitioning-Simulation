@@ -75,7 +75,7 @@ project/
 │        ├── key_migration.png
 │        ├── execution_time.png
 │        ├──virtual_nodes.png
-│        ├──hash_ring.png
+│        └── hash_ring.png
 │
 └── README.md
 ```
